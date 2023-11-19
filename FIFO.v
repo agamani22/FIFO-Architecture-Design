@@ -34,7 +34,7 @@ module fifo(clk,reset,wr_en,rd_en,din,dout,full,empty);
             	addr = addr + 1;
             end
           else
-            if(rd_en && (!empty))
+            if(rd_en && (!empty)) // read means to take the data out from the topmost memory element in FIFO
               begin
                 dout =mem[0];
                 mem[0] = mem[1];
