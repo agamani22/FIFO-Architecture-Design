@@ -20,11 +20,11 @@ module fifo(clk,reset,wr_en,rd_en,din,dout,full,empty);
   
   always@(posedge clk)
     begin
-      if(reset)
+      if(reset)// here when reset is given, we initialize the address register (which is inside counter module) and all memory element to zero 
         begin
         	addr = 4'b0000;
       		for(i=0;i<=15;i=i+1) 
-        		mem[i] = 8'b0;
+            mem[i] = 8'b0;// Since each memory element (which are inside RAM) width is 8bits
         end
       else if(wr_en | rd_en)//read or write
         begin
