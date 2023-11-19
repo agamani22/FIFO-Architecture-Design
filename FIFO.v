@@ -15,7 +15,7 @@ module fifo(clk,reset,wr_en,rd_en,din,dout,full,empty);
   wire full,empty; // since we  use assign statmt for FULL & EMPTY , so we must declare them as wires
   reg [3:0]addr;
   integer i;
-  assign full = (addr ==4'b1111) ? 1'b1 : 1'b0;
+  assign full = (addr ==4'b1111) ? 1'b1 : 1'b0; // if address reaches the topmost location of the RAM memory, then put full flag is high
   assign empty = (addr ==4'b0000) ? 1'b1 : 1'b0;
   
   always@(posedge clk)
