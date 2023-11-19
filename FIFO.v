@@ -1,22 +1,22 @@
-// Code your design here
+// DESIGNED A SYNCHRONOUS FIFO
 `timescale 1ns/1ps
 module fifo(clk,reset,wr_en,rd_en,din,dout,full,empty);
-  input clk,reset;
+  input clk,reset; // as synchronous FIFO , so same clock for read & write
   input wr_en,rd_en;
   input [7:0]din;
   output [7:0]dout;
   output full,empty;
   
-  reg [7:0]mem[0:15];//declaration of RAM
+  reg [7:0]mem[0:15];//declaration of RAM, of width 8 bits & depth 16 bits
   wire clk,reset;
   wire wr_en,rd_en;
   wire [7:0]din;
   reg [7:0]dout;
-  wire full,empty;
-  reg [4:0]addr;
+  wire full,empty; // since we  use assign statmt for FULL & EMPTY , so we must declare them as wires
+  reg [3:0]addr;
   integer i;
-  assign full = (addr ==5'b10000) ? 1'b1 : 1'b0;
-  assign empty = (addr ==5'b00000) ? 1'b1 : 1'b0;
+  assign full = (addr ==4'b1111) ? 1'b1 : 1'b0;
+  assign empty = (addr ==4'b0000) ? 1'b1 : 1'b0;
   
   always@(posedge clk)
     begin
@@ -28,9 +28,9 @@ module fifo(clk,reset,wr_en,rd_en,din,dout,full,empty);
         end
       else if(wr_en | rd_en)//read or write
         begin
-          if(wr_en && (!full))
+          if(wr_en && (!full))// checking that its write operation and the FIFO  is not FULL
             begin
-            	mem[addr]=din;
+              mem[addr]=din;// here we initiaized the address, and from next step onwards w'll just increment the address
             	addr = addr + 1;
             end
           else
