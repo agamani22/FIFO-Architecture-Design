@@ -18,7 +18,7 @@ module fifo(clk,reset,wr_en,rd_en,din,dout,full,empty);
   assign full = (addr ==4'b1111) ? 1'b1 : 1'b0; // if address reaches the topmost location of the RAM memory, then put full flag is high
   assign empty = (addr ==4'b0000) ? 1'b1 : 1'b0;
   
-  always@(posedge clk)
+  always@(posedge clk)    // creating combinational logic using always block
     begin
       if(reset)// here when reset is given, we initialize the address register (which is inside counter module) and all memory element to zero 
         begin
